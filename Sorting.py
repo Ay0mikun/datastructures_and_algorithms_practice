@@ -1,5 +1,18 @@
 import pdb
 
+def swap(array, indexLeft, indexRight):
+    temp = array[indexLeft]
+    array[indexLeft] = array[indexRight]
+    array[indexRight] = temp
+
+
+def sumNum(num):
+    if num == 0:
+        return 0
+    if num == 1:
+        return 1
+    return num + sumNum(num-1)
+
 def sortingAlgorithm(elements):
     indexMax = 0
     end = len(elements)
@@ -14,6 +27,9 @@ def sortingAlgorithm(elements):
     return elements
 
 
+"""
+################ Insertion Sort ################
+"""
 def insertionSort(array):
     """
     Assume first element is sorted and move to next element
@@ -37,25 +53,53 @@ def insertionSort(array):
         array[currIndex]=value
     return array    
 
-def swap(array, indexLeft, indexRight):
-    temp = array[indexLeft]
-    array [indexLeft] = array[indexRight]
-    array[indexRight] =temp
+"""
+################ Merge Sort ################
+"""
+def mergeSort(array):
+    if len(array)<=1:
+        return array
 
+    mid = len(array)//2    
 
-def sumNum(num):
-    if num ==0:
-        return 0
-    if num==1:
-        return 1    
-    return num + sumNum(num-1) 
+    left = array[:mid]
+    right = array[mid:]
+
+    left = mergeSort(left)
+    right = mergeSort(right)
+
+    return list(merge(left, right))
+
+def merge(left, right):
+    elements=[]
+
+    leftInd = 0
+    rightInd=0
+
+    while leftInd<len(left) and rightInd<len(right):
+        if(left[leftInd] <= right[rightInd]):
+            elements.append(left[leftInd])
+            leftInd += 1
+        else:
+            elements.append(right[rightInd])
+            rightInd+=1
+
+    if left:
+        elements.extend(left[leftInd:])
+
+    if right:
+        elements.extend(right[rightInd:]) 
+
+    return elements       
+ 
+    
+
 
 
 given_list = [5,4,3,2,1]
 
-
-
-print(sortingAlgorithm(given_list), end=" ")
+#merge(given_list,elements,0,len(given_list)//2,len(given_list)-1)
+print(mergeSort(given_list), end=" ")
 
 print("The sum is {}".format(sumNum(10)))
    
