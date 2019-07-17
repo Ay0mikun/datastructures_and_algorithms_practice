@@ -68,7 +68,7 @@ def mergeSort(array):
     left = mergeSort(left)
     right = mergeSort(right)
 
-    return list(merge(left, right))
+    return merge(left, right)
 
 def merge(left, right):
     elements=[]
